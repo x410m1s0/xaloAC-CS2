@@ -2,47 +2,82 @@
 
 **Educational & Research Project**
 
-`xaloAC-CS2`, Counter-Strike 2 üzerinde düşük seviyeli Windows programlama, user-mode / kernel-mode iletişimi, bellek erişimi, overlay oluşturma ve oyun içi veri işleme gibi konuları araştırmak amacıyla hazırlanmış bir C++ araştırma projesidir.
+`xaloAC-CS2`, C++ ve Windows düşük seviyeli programlama konularını araştırmak amacıyla hazırlanmış deneysel bir araştırma projesidir.
+
+Proje; user-mode / kernel-mode mimarisi, Windows driver yapısı, IOCTL iletişimi, bellek işlemleri, DirectX 11 overlay sistemi ve modüler C++ yazılım mimarisi gibi teknik konular üzerine kurulmuştur.
 
 > **xaloAC**
 > Developer: **x410m1s0**
 
 ---
 
-## ⚠️ Sorumluluk ve Kullanım Bildirimi
+## ⚠️ Proje Durumu
 
-Bu proje **eğitim, araştırma ve yazılım geliştirme çalışmaları** amacıyla yayımlanmaktadır.
+**Önemli:** Bu repository'deki kodların tamamı gerçek bir sistem üzerinde çalıştırılarak doğrulanmış değildir.
 
-Proje içerisinde oyun süreçleriyle etkileşim, kernel-mode driver, bellek işlemleri, overlay ve benzeri düşük seviyeli tekniklerin uygulanmasına yönelik kaynak kodları bulunabilir.
+Kodların önemli bölümü **mantıksal akış, mimari tasarım ve kaynak kod seviyesinde ilerlenerek** oluşturulmuştur. Bileşenlerin birbirleriyle nasıl iletişim kurması gerektiği ve hedeflenen çalışma modeli tasarlanmış olsa da, bütün sistemin gerçek bir CS2 ortamında baştan sona çalıştığı garanti edilmemektedir.
 
-Bu kaynak kodun çevrimiçi oyunlarda haksız avantaj sağlamak, başka kullanıcıların oyun deneyimini bozmak veya ilgili oyunların kullanım şartlarını ihlal etmek amacıyla kullanılmaması gerekir.
+Bu nedenle proje:
 
-Projeyi kullanan kişi gerçekleştirdiği tüm işlemlerden kendisi sorumludur.
+* Tamamlanmış bir ürün değildir.
+* Production-ready değildir.
+* Çalışan bir cheat olarak garanti edilmez.
+* Tüm kernel ve user-mode bileşenlerinin gerçek sistem üzerinde test edildiği iddia edilmez.
+* CS2'nin güncel sürümüyle uyumluluğu garanti edilmez.
+* Kod içerisindeki bazı bileşenler deneysel veya tamamlanmamış olabilir.
 
-**xaloAC-CS2, Valve Corporation veya Counter-Strike 2 ile bağlantılı, desteklenen veya onaylanan resmi bir proje değildir.**
+Repository'nin amacı **çalıştığı iddia edilen hazır bir ürün sunmak değil, teknik araştırma ve geliştirme sürecini kaynak kod üzerinden paylaşmaktır.**
 
 ---
 
 ## 🎯 Projenin Amacı
 
-Projenin temel amacı, aşağıdaki teknik konuların pratik olarak incelenmesidir:
+`xaloAC-CS2`, aşağıdaki teknik konuları araştırmak ve öğrenmek amacıyla tasarlanmıştır:
 
 * C++ ile düşük seviyeli Windows programlama
 * User-mode ve kernel-mode mimarisi
 * Windows kernel driver yapısı
 * IOCTL tabanlı iletişim
-* Proses ve bellek işlemleri
-* DirectX tabanlı rendering
+* Proses ve sanal bellek işlemleri
+* DirectX 11 rendering
 * Overlay mimarisi
-* Oyun içerisindeki verilerin işlenmesi
+* Modüler C++ proje tasarımı
 * Offset / signature tabanlı veri keşfi
-* Modüler yazılım mimarisi
-* Anti-debugging ve düşük seviyeli güvenlik araştırmaları
 * Windows sistem programlama
+* Düşük seviyeli debugging ve araştırma
 
 ---
 
-## 🧩 Proje Yapısı
+## 🧩 Mimari
+
+Proje temel olarak üç ana katman üzerine tasarlanmıştır:
+
+```text
+┌─────────────────────────────┐
+│          UserMode           │
+│                             │
+│ Aimbot / ESP / Triggerbot  │
+│ Process / Offset / Config  │
+└──────────────┬──────────────┘
+               │
+               │ IOCTL
+               ▼
+┌─────────────────────────────┐
+│           Kernel            │
+│                             │
+│ Driver / Communication      │
+│ Memory / Process Operations │
+└──────────────┬──────────────┘
+               │
+               ▼
+        Windows Kernel
+```
+
+Overlay tarafı ise görsel çıktıların oluşturulması için ayrı bir katman olarak tasarlanmıştır.
+
+---
+
+## 📁 Proje Yapısı
 
 ```text
 xaloAC-CS2/
@@ -76,7 +111,7 @@ xaloAC-CS2/
 └── LICENSE
 ```
 
-> Klasör yapısı sürüme göre değişebilir.
+> Klasör yapısı proje sürümüne göre değişebilir.
 
 ---
 
@@ -90,48 +125,57 @@ xaloAC-CS2/
 * **Direct3D 11**
 * **ImGui / Overlay teknolojileri**
 * **Visual Studio**
+* **Windows SDK**
 * **Windows Driver Kit (WDK)**
 
 ---
 
-## 🧠 Temel Bileşenler
+## 🧠 Bileşenler
 
 ### Kernel
 
-Kernel tarafı, Windows çekirdeğinde çalışan düşük seviyeli bileşenleri içerir.
+Kernel katmanı, Windows çekirdeğiyle çalışan düşük seviyeli bileşenlerin mimarisini içerir.
 
-Araştırılan konular arasında:
+Tasarlanan bileşenler arasında:
 
-* Driver başlangıcı
+* Driver başlangıç yapısı
 * IOCTL iletişimi
-* Proses tanımlama
+* Proses işlemleri
 * Bellek işlemleri
 * User-mode ↔ kernel-mode iletişimi
-* Kernel seviyesinde sistem işlemleri
+* Düşük seviyeli sistem işlemleri
 
 bulunmaktadır.
 
+**Bu bileşenlerin tamamının gerçek Windows sistemi üzerinde çalıştığı doğrulanmış değildir.**
+
+---
+
 ### UserMode
 
-User-mode tarafında uygulamanın ana kontrol mantığı bulunur.
+User-mode katmanı uygulamanın kullanıcı alanındaki ana mantığını içerir.
 
-Bu bölümde:
+Tasarlanan bileşenler:
 
-* Proses yönetimi
-* Offset tarama
-* ESP
+* ProcessManager
+* OffsetScanner
 * Aimbot
+* ESP
 * Triggerbot
-* Yapılandırma
-* Overlay bağlantısı
+* AntiDebug
+* ConfigManager
 
-gibi bileşenler yer almaktadır.
+şeklindedir.
+
+Bu bileşenlerin mevcut kaynak kodları **hedeflenen mimari ve mantıksal çalışma akışına göre hazırlanmıştır.**
+
+---
 
 ### Overlay
 
-Overlay katmanı, DirectX 11 tabanlı görsel çıktı ve oyun üzerine çizim yapılmasıyla ilgili bileşenleri içerir.
+Overlay katmanı DirectX 11 tabanlı görsel çıktı oluşturma amacıyla tasarlanmıştır.
 
-Örneğin:
+Kod içerisinde aşağıdaki türde görsel bileşenler hedeflenmektedir:
 
 * Oyuncu kutuları
 * İsimler
@@ -139,107 +183,100 @@ Overlay katmanı, DirectX 11 tabanlı görsel çıktı ve oyun üzerine çizim y
 * Mesafe
 * Snapline
 * Head marker
+* Diğer görsel bilgiler
 
-gibi görsel bileşenlerin oluşturulmasına yönelik kodlar bulunabilir.
-
----
-
-## 📚 Eğitim Konuları
-
-Bu proje özellikle aşağıdaki konuları öğrenmek isteyen geliştiriciler için kaynak niteliğindedir:
-
-### User-mode / Kernel-mode
-
-Windows uygulamalarının user-mode ve kernel-mode arasındaki çalışma modelini anlamak.
-
-### IOCTL
-
-Bir user-mode uygulaması ile kernel driver arasında kontrollü veri iletişiminin nasıl gerçekleştirilebileceğini incelemek.
-
-### Bellek Yönetimi
-
-Windows proseslerinin ve sanal belleğinin düşük seviyede nasıl ele alındığını araştırmak.
-
-### DirectX Overlay
-
-Direct3D 11 kullanılarak gerçek zamanlı grafik arayüzlerinin nasıl oluşturulduğunu incelemek.
-
-### Modüler Mimari
-
-Büyük bir C++ projesinin farklı sistemlere ayrılarak yönetilmesini incelemek.
+Bunların gerçek oyun ortamındaki çalışırlığı ayrıca doğrulanmalıdır.
 
 ---
 
-## ⚠️ Proje Durumu
+## 🔬 Geliştirme Yaklaşımı
 
-Bu repository **production-ready bir yazılım olarak değerlendirilmemelidir.**
-
-Kaynak kodunda deneysel, tamamlanmamış veya sistem ortamına bağlı bileşenler bulunabilir.
-
-Özellikle:
-
-* Windows sürümü
-* Visual Studio sürümü
-* Windows Driver Kit sürümü
-* Driver Signing
-* CS2 güncellemeleri
-* Offset değişiklikleri
-* Sistem yapılandırması
-
-çalışma durumunu etkileyebilir.
-
-Bu nedenle repository'deki kaynak kodun belirli bir sistemde çalışacağı garanti edilmez.
-
----
-
-## 🛠️ Derleme
-
-Projeyi incelemek veya geliştirmek için genel olarak:
-
-1. Visual Studio kurulumu
-2. C++ geliştirme araçları
-3. Windows SDK
-4. Windows Driver Kit (WDK)
-5. DirectX geliştirme bileşenleri
-
-gereklidir.
-
-Driver geliştirme tarafında Windows'un sürücü geliştirme ve imzalama gereksinimleri ayrıca dikkate alınmalıdır.
-
----
-
-## 🔬 Araştırma Alanları
-
-Bu proje aşağıdaki alanlarda araştırma yapmak için kullanılabilir:
+Bu proje hazırlanırken temel yaklaşım:
 
 ```text
-Windows Internals
-       │
-       ├── Processes
-       ├── Virtual Memory
-       ├── Kernel
-       └── Drivers
-              │
-              ▼
-        IOCTL Communication
-              │
-              ▼
-          UserMode
-              │
-              ├── Data Processing
-              ├── Overlay
-              └── Configuration
+Mimari Tasarım
+      ↓
+Bileşenlerin Oluşturulması
+      ↓
+Modüller Arası İletişimin Tasarlanması
+      ↓
+Mantıksal Akışın Oluşturulması
+      ↓
+Kaynak Kodunun Geliştirilmesi
+      ↓
+Gerçek Sistem Testleri
+      ↓
+Hata Düzeltme
+      ↓
+Doğrulama
 ```
+
+şeklindedir.
+
+Ancak repository'nin mevcut halinde **tüm aşamalar tamamlanmış değildir**.
+
+Özellikle gerçek sistem üzerinde:
+
+* Driver yükleme,
+* Kernel ↔ UserMode iletişimi,
+* CS2 veri erişimi,
+* Güncel offsetlerin doğrulanması,
+* Overlay,
+* ESP,
+* Aimbot,
+* Triggerbot
+
+gibi bileşenlerin uçtan uca test edilmesi gerektiği kabul edilmektedir.
 
 ---
 
-## 📌 CS2 Hakkında
+## 🧪 Test Durumu
 
-`xaloAC-CS2`, Counter-Strike 2'nin resmi bir bileşeni değildir.
+Bu repository için **"tüm kodlar test edilmiştir" şeklinde bir iddia bulunmamaktadır.**
 
-**Counter-Strike 2** ve ilgili ticari markalar Valve Corporation'a aittir.
+Kodların oluşturulması sırasında temel olarak:
 
-Bu repository'nin Valve Corporation tarafından geliştirildiği, desteklendiği veya onaylandığı iddia edilmemektedir.
+* Kaynak kod yapısı,
+* Fonksiyonlar arası mantıksal akış,
+* Modüllerin birbirleriyle ilişkisi,
+* Beklenen veri akışı,
+* Mimari bütünlük
+
+üzerinden ilerlenmiştir.
+
+Gerçek donanım, gerçek Windows kernel ortamı ve güncel CS2 sürümü üzerinde yapılacak kapsamlı testler ayrı bir geliştirme aşamasıdır.
+
+Bu nedenle herhangi bir modülün yalnızca kaynak kodda bulunması, o modülün gerçek ortamda çalıştığı anlamına gelmez.
+
+---
+
+## 📌 CS2 Uyumluluğu
+
+Counter-Strike 2 güncellemeleri oyun içerisindeki veri yapılarının, offsetlerin ve diğer teknik ayrıntıların değişmesine neden olabilir.
+
+Bu nedenle repository içerisindeki kaynak kodun herhangi bir CS2 sürümüyle sürekli olarak uyumlu kalacağı garanti edilmez.
+
+---
+
+## ⚠️ Kullanım ve Sorumluluk
+
+Bu proje **eğitim ve araştırma amacıyla** yayımlanmaktadır.
+
+Kaynak kod içerisinde oyun süreçleriyle etkileşim, kernel driver, bellek işlemleri, overlay ve benzeri düşük seviyeli teknikler bulunabilir.
+
+Projeyi kullanan kişi, yaptığı işlemlerden ve kendi sistemindeki kullanımından kendisi sorumludur.
+
+Çevrimiçi oyunlarda haksız avantaj sağlamak, başka kullanıcıların deneyimini bozmak veya ilgili hizmetlerin kullanım şartlarını ihlal etmek amacıyla kullanılmamalıdır.
+
+---
+
+## 🚫 Resmî Bağlantı Yoktur
+
+`xaloAC-CS2`, Valve Corporation tarafından geliştirilmiş, desteklenmiş veya onaylanmış bir proje değildir.
+
+**Counter-Strike 2** ve ilgili marka ve fikri mülkiyet hakları ilgili hak sahiplerine aittir.
+
+Bu repository'nin Valve Corporation ile herhangi bir resmî bağlantısı olduğu iddia edilmemektedir.
 
 ---
 
@@ -247,9 +284,7 @@ Bu repository'nin Valve Corporation tarafından geliştirildiği, desteklendiği
 
 Bu proje standart MIT, Apache veya GPL lisanslarından biri altında değildir.
 
-Kullanım koşulları için repository içerisindeki [`LICENSE`](LICENSE) dosyasına bakınız.
-
-Kaynak kodunun kullanılması, kopyalanması, değiştirilmesi veya dağıtılması LICENSE dosyasındaki şartlara tabidir.
+Kullanım, değiştirme ve yeniden dağıtım koşulları için repository içerisindeki [`LICENSE`](LICENSE) dosyasına bakınız.
 
 ---
 
@@ -263,12 +298,22 @@ Developer:
 
 ---
 
-## 📬 Proje
+## 📌 Özet
 
-```text
-Project: xaloAC-CS2
-Brand:   xaloAC
-Developer: x410m1s0
-```
+`xaloAC-CS2`:
 
-Bu repository'nin temel amacı, düşük seviyeli Windows ve C++ programlama konularında teknik araştırma ve eğitim çalışmalarına kaynak sağlamaktır.
+* Deneysel bir araştırma projesidir.
+* C++ / Windows düşük seviyeli programlama üzerine kuruludur.
+* User-mode ve kernel-mode mimarisi içerir.
+* Kaynak kodunun tamamının gerçek ortamda test edildiği iddia edilmemektedir.
+* Mimari ve mantıksal geliştirme yaklaşımıyla oluşturulmuştur.
+* Production-ready değildir.
+* Hazır ve garantili çalışan bir ürün olarak sunulmamaktadır.
+
+**Amaç, kaynak kod üzerinden teknik mimariyi ve geliştirme sürecini incelemektir.**
+
+---
+
+**xaloAC**
+**x410m1s0**
+**2026**
