@@ -1,21 +1,110 @@
-MIT License
+XALOAC-CS2 ÖZEL KULLANIM LİSANSI
 
 Copyright (c) 2026 xaloAC
+Geliştirici: x410m1s0
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Bu lisans, "xaloAC-CS2" adlı yazılım projesinin kaynak kodları, dosyaları, bileşenleri ve bunların türevleri için geçerlidir.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. İZİN VERİLEN KULLANIMLAR
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Bu proje yalnızca aşağıdaki amaçlarla kullanılabilir:
+
+* Eğitim ve öğrenme,
+* Yazılım geliştirme araştırmaları,
+* C++ ve Windows sistem programlama araştırmaları,
+* User-mode / kernel-mode mimarisinin incelenmesi,
+* Kaynak kodunun incelenmesi ve analiz edilmesi,
+* Kişisel ve kontrollü test ortamlarında teknik araştırma.
+
+Kaynak kodu incelenebilir ve eğitim amacıyla yerel olarak değiştirilebilir.
+
+2. YASAKLANAN KULLANIMLAR
+
+Bu proje veya herhangi bir bölümü:
+
+* Çevrimiçi oyunlarda haksız avantaj sağlamak,
+* Başka kullanıcıların oyun deneyimini bozmak,
+* Yetkisiz sistemlere veya bilgisayarlara erişmek,
+* Güvenlik mekanizmalarını yetkisiz şekilde aşmak,
+* Kötü amaçlı yazılım oluşturmak,
+* Kullanıcıların veya üçüncü kişilerin verilerini izinsiz toplamak,
+* Dolandırıcılık, kötüye kullanım veya başka yasa dışı faaliyetlerde bulunmak
+
+amacıyla kullanılamaz.
+
+3. TİCARİ KULLANIM
+
+xaloAC'nin yazılı izni olmadan bu projenin veya herhangi bir bölümünün:
+
+* Satılması,
+* Kiralanması,
+* Ücretli bir hizmetin parçası olarak sunulması,
+* Ticari bir ürünün içerisine dahil edilmesi,
+* Ticari amaçla yeniden dağıtılması
+
+yasaktır.
+
+4. YENİDEN DAĞITIM
+
+Bu projenin kaynak kodunun veya değiştirilmiş sürümlerinin yeniden dağıtılması için xaloAC'nin yazılı izni gereklidir.
+
+İzin verilmesi durumunda:
+
+* Projenin adı değiştirilmemelidir.
+* "xaloAC" ve "x410m1s0" marka/geliştirici bilgileri kaldırılmamalıdır.
+* Bu LICENSE dosyası dağıtımla birlikte korunmalıdır.
+* Projenin değiştirilmiş olduğu açıkça belirtilmelidir.
+* Projenin xaloAC tarafından geliştirildiği veya onaylandığı yönünde yanlış bir izlenim oluşturulmamalıdır.
+
+5. MARKA VE İSİM
+
+"xaloAC", "xaloAC-CS2" ve "x410m1s0" isimleri bu lisans kapsamında otomatik olarak kullanım hakkı verilen ticari markalar veya marka unsurları olarak değerlendirilmez.
+
+Bu isimlerin başka projelerde, ürünlerde veya ticari faaliyetlerde xaloAC'nin izni olmadan kullanılması yasaktır.
+
+6. VALVE VE COUNTER-STRIKE 2
+
+Bu proje Valve Corporation tarafından geliştirilmemiş, desteklenmemiş veya onaylanmamıştır.
+
+"Counter-Strike 2", "CS2" ve ilgili marka ve fikri mülkiyet hakları ilgili hak sahiplerine aittir.
+
+Bu lisans, Valve Corporation'a ait herhangi bir fikri mülkiyet üzerinde hak iddia etmez.
+
+7. GARANTİ
+
+Bu proje "OLDUĞU GİBİ" sunulmaktadır.
+
+xaloAC veya x410m1s0:
+
+* Projenin hatasız çalışacağını,
+* Belirli bir sistemde çalışacağını,
+* Herhangi bir Windows sürümüyle uyumlu olacağını,
+* Gelecekteki yazılım veya oyun güncellemeleriyle çalışmaya devam edeceğini,
+* Herhangi bir amaca uygun olacağını
+
+garanti etmez.
+
+8. SORUMLULUK
+
+Projeyi kullanan kişi, yaptığı tüm işlemlerden ve bu projenin kullanımından kendisi sorumludur.
+
+xaloAC veya x410m1s0, projenin kullanımından kaynaklanan doğrudan veya dolaylı herhangi bir zarar, veri kaybı, sistem hasarı, hesap yaptırımı, hizmet kesintisi veya başka bir sonuçtan sorumlu tutulamaz.
+
+9. LİSANSIN İHLALİ
+
+Bu lisansın herhangi bir hükmünün ihlal edilmesi durumunda verilen kullanım izinleri, xaloAC tarafından ayrıca bildirim yapılmasına gerek olmaksızın sona erebilir.
+
+10. HAKLARIN SAKLI TUTULMASI
+
+Bu lisans içerisinde açıkça verilen haklar dışında, proje üzerindeki tüm haklar xaloAC tarafından saklı tutulur.
+
+Bu lisansın hiçbir bölümü, burada açıkça belirtilmeyen herhangi bir kullanım hakkının devredildiği anlamına gelmez.
+
+11. YÜRÜRLÜK
+
+Bu lisans, xaloAC-CS2 projesinin dağıtılan her sürümü için geçerlidir.
+
+Copyright (c) 2026 xaloAC
+Developer: x410m1s0
+
+Tüm hakları saklıdır.
